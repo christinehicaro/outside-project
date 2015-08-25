@@ -23,9 +23,15 @@ jinja_environment = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('templates/index.html')
+        template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render())
 
+class QuizHandler(webapp2.RequestHandler):
+    def get(self):
+        quiz_template = jinja_environment.get_template('templates/index.html')
+        self.response.write(quiz_template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/index', QuizHandler),
 ], debug=True)
