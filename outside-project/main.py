@@ -28,10 +28,22 @@ class MainHandler(webapp2.RequestHandler):
 
 class QuizHandler(webapp2.RequestHandler):
     def get(self):
-        quiz_template = jinja_environment.get_template('templates/index.html')
-        self.response.write(quiz_template.render())
+        quiz_template = jinja_environment.get_template('templates/1-1.html')
+        self.response.write(quiz_template.render());
+
+class Level1Q2Handler(webapp2.RequestHandler):
+    def post(self):
+        template1_1 = jinja_environment.get_template('templates/1-1.html')
+        user_response = self.request.get("useranswer");
+        if user_response == 'b' or user_response == "B":
+            template1_2 = jinja_environment.get_template('templates/1-2.html')
+            self.response.write(template1_2.render())
+        else:
+            template_error = jinja_environment.get_template('templates/error.html')
+            self.response.write(template_error.render());
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/index', QuizHandler),
+    ('/quiz', QuizHandler),
+    ('/l1q2', Level1Q2Handler)
 ], debug=True)
